@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>Page Title</title>
     <script src="vendors/angular.min.js"></script>
+    <script src="scripts/services/messages.service.js"></script>
     <script src="scripts/controllers/messages.controller.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="styles/style.css" />
 </head>
@@ -11,6 +12,7 @@
     <div ng-controller="MessagesController as vm">
         <h1>Message Board</h1>
     <h3>Add new message</h3>
+    {{vm.message}}
     <div>
         <input type="text" placeholder="your name" ng-model="vm.newMessage.name">
         <input type="text" placeholder="your message" ng-model="vm.newMessage.text">
@@ -21,7 +23,7 @@
         <h2>
             Messages
         </h2>
-        <p ng-repeat="message in vm.messages">{{message.name}}: {{message.message}}</p>
+        <p ng-repeat="message in vm.messages.list">{{message.name}}: {{message.message}}</p>
     </div>
 
 

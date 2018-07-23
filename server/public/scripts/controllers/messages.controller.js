@@ -1,42 +1,16 @@
-const app = angular.module('MessagesApp', []);
 
-app.controller('MessagesController',['Messages', function( $http){
+
+app.controller('MessagesController',['MessagesService', function(MessagesService){
     let self = this;
 
-console.log('Controller loaded');
+    self.message = MessagesService.message
 
-self.message ='Working';
+    // variable
+    self.messages = MessagesService.messages;
 
-self.postMessage = function(newMessage){
-    $http({
-        method: 'POST',
-        url: '/messages',
-        data: newMessage
-    }).then( function(result){
-        self.getMessages();
-    }).catch( function (err){
-        console.log(err);
-        alert('Error');
-        
-    });
-};
+    // functions
+    self.getMessages = MessagesService.getMessages;
+    self.postMessage = MessagesService.postMessage;
 
-self.getMessages = function(){
-    $http({
-        method: 'GET',
-        url: '/messages'
-    }).then( function(result){
-        console.log(result.data);
-        
-        self.messages = result.data;
-        
-    }).catch( function (err){
-        console.log(err);
-        alert('Error')
-        
-    })
-};
-
-self.getMessages();
 
 }]);
