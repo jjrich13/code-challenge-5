@@ -22,11 +22,13 @@ router.get('/', (req, res) => {
     pool.query(
         `SELECT * FROM "messages";`
     ).then( result => {
+        console.log(result.rows);
+        
         res.send(result.rows);
     }).catch(err => {
         console.log(err);
         res.sendStatus(500);
-    })
+    });
     
 });
 

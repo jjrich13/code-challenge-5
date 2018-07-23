@@ -1,6 +1,6 @@
 const app = angular.module('MessagesApp', []);
 
-app.controller('MessagesController',['$http', function( $http){
+app.controller('MessagesController',['Messages', function( $http){
     let self = this;
 
 console.log('Controller loaded');
@@ -8,13 +8,28 @@ console.log('Controller loaded');
 self.message ='Working';
 
 self.postMessage = function(newMessage){
-    console.log('Clicked:', newMessage);
     $http({
         method: 'POST',
         url: '/messages',
         data: newMessage
     }).then( function(result){
-        alert('Posted!')
+        self.getMessages();
+    }).catch( function (err){
+        console.log(err);
+        alert('Error');
+        
+    });
+};
+
+self.getMessages = function(){
+    $http({
+        method: 'GET',
+        url: '/messages'
+    }).then( function(result){
+        console.log(result.data);
+        
+        self.messages = result.data;
+        
     }).catch( function (err){
         console.log(err);
         alert('Error')
@@ -22,5 +37,6 @@ self.postMessage = function(newMessage){
     })
 };
 
+self.getMessages();
 
 }]);
